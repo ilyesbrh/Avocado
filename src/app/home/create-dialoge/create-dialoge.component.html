@@ -1,0 +1,56 @@
+<mat-card #card class="container my-5">
+  <mat-card-header class="d-flex justify-content-around">
+    <mat-card-title>Cree neveau affair</mat-card-title>
+    <mat-card-subtitle>cree votre premier projet</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content class="row m-xm-1 m-sm-2 m-md-5">
+    <form #form="ngForm" class="col-12 align-baseline" style="font-size: 22px">
+      <mat-form-field [ngClass]="{'col-md-12': true}">
+        <input #name matInput maxlength="15" cdkFocusInitial placeholder="Nom d'affair" [(ngModel)]="data.name"
+          name="name" required>
+        <mat-error *ngIf="name">le nom et obligatoire</mat-error>
+      </mat-form-field>
+
+      <mat-form-field [ngClass]="{'col-md-12': true}">
+        <input #numero type="number" matInput placeholder="numero d'affair" [(ngModel)]="data.number" name="numero"
+          required>
+        <mat-error *ngIf="numero">le numero et obligatoire</mat-error>
+      </mat-form-field>
+      
+      
+      <mat-form-field [ngClass]="{'col-md-12': true}">
+        <input #tribunal type="text" matInput placeholder="Tribunal" [(ngModel)]="data.court" name="tribunal">
+      </mat-form-field>
+
+      <mat-form-field [ngClass]="{'col-md-12': true}">
+        <mat-select #type placeholder="le type du projet" [(ngModel)]="data.type" name="type" required>
+          <mat-option *ngFor="let type of Types" [value]="type.value">{{type.name}}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="type">le type et obligatoire</mat-error>
+      </mat-form-field>
+
+      <label class="col-md-5 mt-3 text-center align-middle">Date Audience:</label>
+      <mat-form-field [ngClass]="{'col-md-4': true}">
+        <input matInput [matDatepicker]="picker" placeholder="date" [(ngModel)]="date" (ngModelChange)="changedate()"
+          name="date">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker touchUi #picker></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field [ngClass]="{'col-md-3': true}">
+        <input matInput [ngxTimepicker]="TimePicker" [format]="24" placeholder="Heure" [(ngModel)]="time"
+          (ngModelChange)="changedate($event.value)" name="time">
+        <mat-datepicker-toggle matSuffix [for]="TimePicker"></mat-datepicker-toggle>
+      </mat-form-field>
+      <ngx-material-timepicker #TimePicker></ngx-material-timepicker>
+
+      <mat-form-field class="col-md-12">
+        <textarea matInput placeholder="Description d'affair" [(ngModel)]="data.description" name="description"></textarea>
+      </mat-form-field>
+    </form>
+  </mat-card-content>
+  <mat-card-actions class="d-flex justify-content-center mb-3">
+    <button mat-button class="p-2 px-4" [routerLink]="['/Home']" style="font-size: 22px">Cancel</button>
+    <button mat-raised-button class="p-2 px-4" color="accent" (click)="onCreate()" [disabled]="!form.valid" style="font-size: 22px">Create</button>
+  </mat-card-actions>
+</mat-card>

@@ -1,4 +1,6 @@
 import { NgModule } from '@angular/core';
+
+import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 import {
   MatAutocompleteModule, MatBadgeModule, MatBottomSheetModule, MatButtonModule, MatButtonToggleModule, MatCardModule, MatCheckboxModule, MatChipsModule,
   MatDatepickerModule, MatDialogModule, MatDividerModule, MatExpansionModule, MatGridListModule, MatIconModule, MatInputModule, MatListModule,
@@ -7,7 +9,12 @@ import {
   MatToolbarModule, MatTooltipModule, MatTreeModule, MatFormFieldModule,
 } from '@angular/material';
 
-const MODULES = [MatGridListModule, MatCardModule, MatMenuModule, MatIconModule, MatButtonModule];
+
+const MODULES = [MatGridListModule, MatCardModule, MatMenuModule,MatSnackBarModule, MatIconModule,
+                 MatButtonModule,MatFormFieldModule,MatProgressSpinnerModule,MatInputModule,
+                 MatProgressBarModule,MatCheckboxModule,MatSelectModule,MatDatepickerModule,
+                 NgxMaterialTimepickerModule,MatSidenavModule,MatListModule,MatBadgeModule,
+                 MatToolbarModule,MatNativeDateModule];
 
 @NgModule({
   imports: MODULES,
