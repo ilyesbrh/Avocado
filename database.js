@@ -52,6 +52,8 @@ exports.getUsers = getUsers;
 function getUser(user) {
 
   let query = `select * from user where username = '${user.username}' AND password = '${user.password}'`;
+  console.log(query);
+  
   return asPromise(query,null);
 }
 exports.getUser = getUser;
@@ -115,6 +117,19 @@ exports.isAuthorized = isAuthorized;
 
 /*----------  'affair' Table  ----------*/
 
+
+/**
+ * get 'affair' rows count
+ * @returns rows count
+ */
+function getAffairRowsCount() {
+
+  const query = `SELECT Count(id) AS count FROM affair `;
+  return asPromise(query,null);
+}
+exports.getAffairRowsCount = getAffairRowsCount;
+
+
 /**
  * get 'affair'
  * @param offset : left offset (margin)
@@ -147,7 +162,7 @@ exports.getAffair = getAffair;
  * @returns promise: query result
  */
 function deleteAffair(id) {
-
+  
   const query = `DELETE FROM affair where id = ${id}`;
   return asPromise(query,null);
 }
@@ -159,7 +174,7 @@ exports.deleteAffair = deleteAffair;
  * @returns promise: true if inserted
  */
 function insertAffair(affair) {
-
+  
   let query = 'INSERT INTO affair SET ?';
   return asPromise(query, affair);
 }
@@ -171,17 +186,17 @@ exports.insertAffair = insertAffair;
  * @returns promise: query result
  */
 function updateAffair(affair) {
-
+  
   if (!affair.id) return null;
-
+  
   let query = `UPDATE affair SET
-    number = :number, type = :type,
-    favorite = :favorite, court = :court,
-    cost= :cost, debt = :debt, payment = :payment,
-    audienceDate = :audienceDate, name= :name,
-    description = :description
-    WHERE id = :id `;
-
+  number = :number, type = :type,
+  favorite = :favorite, court = :court,
+  cost= :cost, debt = :debt, payment = :payment,
+  audienceDate = :audienceDate, name= :name,
+  description = :description
+  WHERE id = :id `;
+  
   return asPromise(query,affair);
 }
 exports.updateAffair = updateAffair;
@@ -223,6 +238,8 @@ function getTableList() {
 function asPromise(query, args) {
   return new Promise(function (resolve, reject) {
     connection.query(query, args, function (err, respTables) {
+      console.log(respTables);
+      
       if (err)
         reject(err);
       else

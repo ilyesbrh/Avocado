@@ -5,7 +5,10 @@ import { affair } from '../model';
  * enum object for all of this group's action types.
  */
 export enum affairActionTypes {
-    postAffair = 'post/affair'
+    postAffair = 'post/affair',
+    setAffairRowCount = 'get/affair/rows/count',
+    setAffairs = 'get/affair/all',
+    deleteAffair = 'delete/affair'
 };
 
 /**
@@ -18,10 +21,28 @@ export class addAffair implements Action {
 
     constructor(public payload:affair) { }
 }
+export class setAffairs implements Action {
+    readonly type = affairActionTypes.setAffairs;
+
+    constructor(public payload:affair[]) { }
+}
+export class DeleteAffair implements Action {
+    readonly type = affairActionTypes.deleteAffair;
+
+    constructor(public payload:[affair,number]) { }
+}
+export class SetAffairRowCount implements Action {
+    readonly type = affairActionTypes.setAffairRowCount;
+
+    constructor(public payload:number) { }
+}
 
 /**
  * Export a type alias of all actions in this action group
  * so that reducers can easily compose action types
  */
-export type affairActions = addAffair;
+export type affairActions = addAffair
+                          | SetAffairRowCount
+                          | DeleteAffair
+                          | setAffairs;
                         

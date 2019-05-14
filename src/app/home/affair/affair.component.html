@@ -1,0 +1,89 @@
+<mat-toolbar  class="container mt-4 tool-bar bg-white">
+    <mat-toolbar-row class="d-flex justify-content-end align-items-center px-3">
+
+        <ngc-float-button [direction]="'right'" icon="edit" class="fab-exp mr-auto">
+            <ngc-float-item-button icon="add" content="float item 1" [routerLink]="['/home/post/affair']" style="z-index: 1062"></ngc-float-item-button>
+            <ngc-float-item-button icon="sort" content="float item 2" [matMenuTriggerFor]="menu" style="z-index: 1061"></ngc-float-item-button>
+            <ngc-float-item-button [icon]="displayType" content="float item 3" (click)="reverseIcon()" style="z-index: 1060"></ngc-float-item-button>
+        </ngc-float-button>
+
+        <td-search-box placeholder="Search" [alwaysVisible]="false" (searchDebounce)="searchBoxTerm = $event" flex>
+        </td-search-box>
+        
+        <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="selected='date'">Date</button>
+            <button mat-menu-item (click)="selected='name'">Name</button>
+            <button mat-menu-item (click)="selected='client'">Client</button>
+        </mat-menu>
+
+    </mat-toolbar-row>
+</mat-toolbar>
+
+<div class="container-fluid my-4" style="height: 60vh">
+    <div class="row">
+        <div class="col" style="overflow-y: scroll;max-height: 60vh">
+            <ng-container *ngIf="displayType == 'list'; then thenTemplate; else elseTemplate"></ng-container>
+            <ng-template #thenTemplate>
+                <mat-grid-list cols="4" rowHeight="250px">
+                    <mat-grid-tile *ngFor="let card of affairList | async" [colspan]="1" [rowspan]="1">
+                        <mat-card class="Large-card">
+                            <mat-card-header>
+                                <mat-card-title>
+                                    {{card.name}}
+                                    <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu"
+                                        aria-label="Toggle menu">
+                                        <mat-icon>more_vert</mat-icon>
+                                    </button>
+                                    <mat-menu #menu="matMenu" xPosition="before">
+                                        <button mat-menu-item>Expand</button>
+                                        <button mat-menu-item>Remove</button>
+                                    </mat-menu>
+                                </mat-card-title>
+                            </mat-card-header>
+                            <mat-card-content class="dashboard-card-content overflow-auto">
+                                <div>Card Content Here</div>
+                                <div>Card Content Here</div>
+                            </mat-card-content>
+                            <mat-card-actions align="center">
+                                <button mat-icon-button>
+                                    <mat-icon>favorite</mat-icon>
+                                </button>
+                                <button mat-raised-button>open</button>
+                                <button mat-raised-button>edit</button>
+                            </mat-card-actions>
+                        </mat-card>
+                    </mat-grid-tile>
+                </mat-grid-list>
+                <mat-paginator class="mt-4 " [length]="affairRowsCount | async" [pageSize]="10"
+                    [pageSizeOptions]="[5, 10]" (page)="pageEvent($event)">
+                </mat-paginator>
+            </ng-template>
+            <ng-template #elseTemplate>
+                <mat-action-list class="col-12">
+                    <h3 mat-subheader>Folders</h3>
+                    <button mat-list-item *ngFor="let item of affairList | async;let i=index">
+                        <mat-icon mat-list-icon>folder</mat-icon>
+                        <h4 mat-line>{{item?.type}}</h4>
+                        <p mat-line> {{item?.id }} </p>
+                        <mat-divider></mat-divider>
+                    </button>
+
+                </mat-action-list>
+            </ng-template>
+        </div>
+        <div class="col-3" [style.display]="hideInfo?'block':'none'">
+            <mat-card style="height: 100%;">
+                <mat-card-header>
+                    <mat-card-title>title</mat-card-title>
+                    <mat-card-subtitle>subtitle</mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content>
+
+                </mat-card-content>
+                <mat-card-actions>
+                    <button mat-button>Ok</button>
+                </mat-card-actions>
+            </mat-card>
+        </div>
+    </div>
+</div>

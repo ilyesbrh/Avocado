@@ -56,11 +56,11 @@ import {
     cursor: pointer;
     box-shadow: 0 2px 5px 0 rgba(0,0,0,.26);
     
-    transform: scale(1.5, 1.5) translate3d(0, 0, 0);
+    transform: scale(1.2, 1.2) translate3d(0, 0, 0);
   }
 
   .fab-menu .fab-toggle:hover {
-    transform: scale(1.6, 1.6) translate3d(0, 0, 0);
+    transform: scale(1.3, 1.3) translate3d(0, 0, 0);
   }
 
   .fab-menu /deep/ .item {
@@ -84,13 +84,13 @@ import {
   .fab-menu.active .fab-toggle {
     transition-timing-function: linear;
     transition-duration: 200ms;
-    transform: scale(1.4, 1.4) translate3d(0, 0, 0);
+    transform: scale(1.2, 1.2) translate3d(0, 0, 0);
   }
 
   `],
   template: `
     <nav class="fab-menu" [class.active]="(state | async).display">
-        <a class="fab-toggle" (click)="toggle()" [style.backgroundColor]="color">
+        <a class="fab-toggle" style="z-index: 1063;" (click)="toggle()" [style.backgroundColor]="color">
           <mat-icon>{{icon}}</mat-icon>
         </a>
         <ng-content></ng-content>
@@ -107,7 +107,7 @@ export class NgcFloatButtonComponent implements AfterContentInit, OnDestroy, OnC
   @Input() direction: string;
   @Input() spaceBetweenButtons: number = 55;
   @Input() open: Subject<boolean>;
-  @Input() color: string = '#dd0031';
+  @Input() color: string = '#ff4081';
   @Input() disabled: boolean = false;
   @Output() events: Subject<any> = new Subject();
   @ContentChildren(NgcFloatItemButtonComponent) buttons;

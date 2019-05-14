@@ -21,3 +21,4 @@ export const getUsers = createSelector(selectUserState, user.getAllUsers);
 
 export const selectAffairState = createFeatureSelector<affair.State>('affair');
 export const getAffairs = createSelector(selectAffairState, affair.getAffairs);
+export const getAffairsRowCount = createSelector(selectAffairState, affair.getAffairsRowCount);

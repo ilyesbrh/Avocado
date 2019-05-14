@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
+import { Store } from '@ngrx/store';
+import * as storeClass from '../../../Store/index';
+import { Observable } from 'rxjs';
+import { affair } from 'src/Store/model';
 
 @Component({
   selector: 'app-dashboard',
@@ -9,7 +13,13 @@ import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 })
 export class DashboardComponent implements OnInit{
   
-  isEmpty: boolean;
+  affairs: Observable<affair[]>;
+  
+  constructor(private breakpointObserver: BreakpointObserver,private store:Store<storeClass.State>) {}
+  ngOnInit(): void {
+    this.affairs = this.store.select(storeClass.getAffairs); 
+  }
+  
   /** Based on the screen size, switch from standard to one column per row */
   cards = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
     map(({ matches }) => {
@@ -30,8 +40,4 @@ export class DashboardComponent implements OnInit{
       ];
     })
   );
-  constructor(private breakpointObserver: BreakpointObserver) {}
-  ngOnInit(): void {
-    this.isEmpty = false;
-  }
 }

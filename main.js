@@ -14,11 +14,12 @@ function createWindow() {
   let win = new BrowserWindow({ width: 800, height: 600 })
 
   // load the dist folder from Angular
-  win.loadURL(url.format({
+  win.loadURL('http://localhost:4200');
+  /* win.loadURL(url.format({
     pathname: path.join(__dirname, '/dist/ElectAvo/index.html'),
     protocol: 'file:',
     slashes: true
-  }));
+  })); */
 
   // Open the DevTools optionally:
   win.webContents.openDevTools();
@@ -67,8 +68,15 @@ ipcMain.on('request', (e, params) => {
     case 'get/affair':
       database.getAffair(arg).then(value => e.sender.send('reply', ['get/affair', value])).catch(errorHandler(e));
       break;
+    case 'get/affair/rows/count':
+
+      database.getAffairRowsCount().then(value => {
+        
+        e.sender.send('reply', ['get/affair/rows/count', value[0].count]);
+      }).catch(errorHandler(e));
+      break;
     case 'post/affair':
-      database.insertAffair(arg).then(_ => e.sender.send('reply', ['post/affair', true])).catch(errorHandler(e));
+      database.insertAffair(arg).then(object => e.sender.send('reply', ['post/affair', object.insertId])).catch(errorHandler(e));
       break;
     case 'update/affair':
       database.updateAffair(arg).then(_ => e.sender.send('reply', ['update/affair', true])).catch(errorHandler(e));
@@ -82,7 +90,7 @@ ipcMain.on('request', (e, params) => {
       database.getUsers().then(value => e.sender.send('reply', ['get/user/all', value])).catch(errorHandler(e));
       break;
     case 'get/user':
-      database.getUser(arg).then(value => e.sender.send('reply', ['get/user', value])).catch(errorHandler(e));
+      database.getUser(arg).then(value => e.sender.send('reply', ['get/user', value[0]])).catch(errorHandler(e));
       break;
     case 'post/user':
       database.insertUser(arg).then(value => e.sender.send('reply', ['post/user', value])).catch(errorHandler(e));
@@ -101,27 +109,6 @@ ipcMain.on('request', (e, params) => {
 
 });
 
-ipcMain.on('getAffair', (e, arg) => {
-
-  getAffair(null, null).then(result => {
-    e.sender.send('get-affair-reply', result);
-  });
-
-});
-ipcMain.on('update-affair', (e, arg) => {
-
-  updateAffaire(arg).then((result) => {
-    e.sender.send('connect-reply', err.stack);
-  });
-
-
-});
-ipcMain.on('affair-delete', (e, arg) => {
-
-
-
-});
-
 /*=====  End of IPC Comunication Interface===*/
 
 
@@ -129,7 +116,8 @@ ipcMain.on('affair-delete', (e, arg) => {
 
 function errorHandler(e) {
   return (err) => {
-    e.sender.send('errorHandler', err.stack);
-    console.log(err);
+    e.sender.send('errorHandler', err.Message);
+    console.log('**' + err.Message);
+    console.log('++' + err);
   };
 }

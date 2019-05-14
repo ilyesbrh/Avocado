@@ -5,6 +5,7 @@ import { HomeComponent } from './home/home.component';
 import { DashboardComponent } from './home/dashboard/dashboard.component';
 import { CreateDialogeComponent } from './home/create-dialoge/create-dialoge.component';
 import { AffairComponent } from './home/affair/affair.component';
+import { AffairsList } from './home/affair/affair-list.resolver';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -12,7 +13,7 @@ const routes: Routes = [
     path: 'home', component: HomeComponent, children: [
       { path: '', component: DashboardComponent },
       { path: 'post/affair', component: CreateDialogeComponent },
-      { path: 'affair', component: AffairComponent},
+      { path: 'affair/:from/:to', component: AffairComponent,resolve:{affairs:AffairsList}},
       { path: '**', redirectTo: '' }
     ]
   },

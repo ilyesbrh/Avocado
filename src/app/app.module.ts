@@ -1,9 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
-import {FormsModule} from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
+import { NgxElectronModule } from 'ngx-electron';
 
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -22,6 +23,8 @@ import { CovalentComponentModules } from './covalent.modules';
 import { CommonModule } from '@angular/common';
 import { NgcFloatButtonComponent } from './home/fab-element/ngc-float-button.component';
 import { NgcFloatItemButtonComponent } from './home/fab-element/ngc-float-item-button.component';
+import { DatabaseApiService } from './database-api.service';
+import { AffairsList } from './home/affair/affair-list.resolver';
 
 
 @NgModule({
@@ -32,13 +35,14 @@ import { NgcFloatItemButtonComponent } from './home/fab-element/ngc-float-item-b
     AffairComponent,
     LoginComponent,
     EmptyPageComponent,
-    CreateDialogeComponent,NgcFloatButtonComponent,NgcFloatItemButtonComponent
+    CreateDialogeComponent, NgcFloatButtonComponent, NgcFloatItemButtonComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     CommonModule,
     BrowserAnimationsModule,
+    NgxElectronModule,
     HttpClientModule,
     angularMaterialModules,
     CovalentComponentModules,
@@ -46,7 +50,11 @@ import { NgcFloatItemButtonComponent } from './home/fab-element/ngc-float-item-b
     FormsModule,
     StoreModule.forRoot(reducers)
   ],
-  providers: [MatDatepickerModule],
+  providers: [
+    MatDatepickerModule,
+    DatabaseApiService,
+    AffairsList
+  ],
   bootstrap: [AppComponent],
   exports: [HomeComponent]
 })

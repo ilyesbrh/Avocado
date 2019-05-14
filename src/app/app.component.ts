@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatIconRegistry } from '@angular/material';
 import { DomSanitizer } from '@angular/platform-browser';
+import { DatabaseApiService } from './database-api.service';
 
 @Component({
   selector: 'app-root',
@@ -9,13 +10,15 @@ import { DomSanitizer } from '@angular/platform-browser';
 })
 export class AppComponent implements OnInit {
   
-  constructor(private matIconRegistry: MatIconRegistry,private domSanitizer: DomSanitizer) {
+  constructor(private matIconRegistry: MatIconRegistry,private domSanitizer: DomSanitizer,private dbService:DatabaseApiService) {
     this.iniIcons();
   }
   ngOnInit(): void {
-    
+    this.loadData();
   }
-
+  loadData(){
+    this.dbService.setup();
+  }
   iniIcons() {
     this.matIconRegistry.addSvgIcon(
       `menuu`,

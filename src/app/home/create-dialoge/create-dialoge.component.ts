@@ -1,6 +1,7 @@
 
 import { Component, OnInit, ElementRef, ViewChild, Renderer2, ContentChild } from '@angular/core';
 import { affairTypes, affair, VoidAffairBuilder } from 'src/Store/model';
+import { DatabaseApiService } from 'src/app/database-api.service';
 declare function require(path: string): any;
 var moment = require('moment');
 
@@ -22,7 +23,7 @@ export class CreateDialogeComponent implements OnInit {
   date: string = "";
 
 
-  constructor() {
+  constructor(private dbService:DatabaseApiService) {
     this.getTypesFromEnum(this.Types);
   }
 
@@ -56,7 +57,7 @@ export class CreateDialogeComponent implements OnInit {
     } catch (error) { }
   }
   onCreate() {
-    console.log('created');
-
+    console.log(this.data);
+    this.dbService.createAffair(this.data);
   }
 }

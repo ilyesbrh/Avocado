@@ -1,10 +1,10 @@
-<mat-card #card class="container my-5">
+<mat-card #card class="container my-md-4 my-md-4 my-lg-4 my-xl-4 ">
   <mat-card-header class="d-flex justify-content-around">
     <mat-card-title>Cree neveau affair</mat-card-title>
     <mat-card-subtitle>cree votre premier projet</mat-card-subtitle>
   </mat-card-header>
   <mat-card-content class="row m-xm-1 m-sm-2 m-md-5">
-    <form #form="ngForm" class="col-12 align-baseline" style="font-size: 22px">
+    <form #form="ngForm" class="col-12 align-baseline" style="font-size: 21px">
       <mat-form-field [ngClass]="{'col-md-12': true}">
         <input #name matInput maxlength="15" cdkFocusInitial placeholder="Nom d'affair" [(ngModel)]="data.name"
           name="name" required>

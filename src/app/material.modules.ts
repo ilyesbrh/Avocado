@@ -14,7 +14,7 @@ const MODULES = [MatGridListModule, MatCardModule, MatMenuModule,MatSnackBarModu
                  MatButtonModule,MatFormFieldModule,MatProgressSpinnerModule,MatInputModule,
                  MatProgressBarModule,MatCheckboxModule,MatSelectModule,MatDatepickerModule,
                  NgxMaterialTimepickerModule,MatSidenavModule,MatListModule,MatBadgeModule,
-                 MatToolbarModule,MatNativeDateModule];
+                 MatToolbarModule,MatNativeDateModule,MatPaginatorModule];
 
 @NgModule({
   imports: MODULES,

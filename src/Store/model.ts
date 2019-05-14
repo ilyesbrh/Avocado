@@ -9,6 +9,7 @@ export interface affair{
     number:number,
     type:string,
     favorite:boolean,
+    state:string,
     name:string,
     court:string,
     creationDate:Date,
@@ -36,5 +37,5 @@ export enum affairTypes {
 export function VoidAffairBuilder():affair {
     return {id:null,number:null,type:null,favorite:false,name:'',
     court:'',creationDate:null ,modificationDate:null,
-    audienceDate:null,cost:null,debt:null,payment:null,description:''};
+    audienceDate:null,cost:null,debt:null,payment:null,description:'',state:'current'};
 }  

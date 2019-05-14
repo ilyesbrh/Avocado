@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MatSnackBar} from '@angular/material';
+import { DatabaseApiService } from '../database-api.service';
 
 @Component({
   selector: 'app-login',
@@ -12,15 +12,12 @@ export class LoginComponent implements OnInit {
   password: string;
   attempting: boolean;
 
-  constructor(private snackBar: MatSnackBar) { }
+  constructor(private dbService:DatabaseApiService ) { }
   ngOnInit() {
     this.attempting = false;
   }
   login(): void {
-    if (this.username == 'admin' && this.password == 'admin') {
-    } else {
-      this.snackBar.open('Invalid credentials', null, { verticalPosition: 'top', politeness: 'polite', duration: 3000 });
-    }
+    this.dbService.login(this.username,this.password);
   }
 
 }

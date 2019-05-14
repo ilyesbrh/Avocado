@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
 
 import { CovalentBreadcrumbsModule } from '@covalent/core/breadcrumbs';
+import { CovalentSearchModule } from '@covalent/core/search';
 
-const MODULES = [CovalentBreadcrumbsModule];
+const MODULES = [CovalentBreadcrumbsModule,CovalentSearchModule];
 
 @NgModule({
   imports: MODULES,
